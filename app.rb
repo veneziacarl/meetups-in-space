@@ -1,5 +1,6 @@
 require 'sinatra'
 require_relative 'config/application'
+require "pry"
 
 helpers do
   def current_user
@@ -28,5 +29,37 @@ get '/sign_out' do
 end
 
 get '/meetups' do
+  @meetups = Meetup.all.order(:name)
   erb :'meetups/index'
+end
+
+get '/meetups/:id' do
+  @meetup = Meetup.find(params[:id])
+  user_id = session[:user_id]
+  if !user_id.nil?
+    @memberlist = [User.find(user_id)]
+  end
+  erb :'meetups/show'
+end
+
+get '/new' do
+  erb :'meetups/new'
+end
+
+post '/new' do
+  @name = params["name"]
+  @description = params["description"]
+  # creator = params["creator"]
+  # from session
+  @location = params["location"]
+
+  if (@name.empty? || @description.empty? || @location.empty?)
+    flash.now[:notice] = "Please fill in form completely!"
+    erb :"meetups/new"
+  else
+    @new_meetup = Meetup.create({name: @name, description: @description, location: @location, creator: session[:user_id]})
+    flash[:notice] = "New meetup #{@name} created!"
+    redirect "/meetups/#{@new_meetup.id}"
+    # erb :'meetups/new'
+  end
 end

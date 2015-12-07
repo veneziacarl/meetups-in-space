@@ -38,3 +38,16 @@ a:visited {
   padding: 1em;
   background-color: #3B9089;
 }
+
+.avatar {
+  width: 50px;
+  padding-right: 5px;
+}
+
+.memberList {
+  list-style: none;
+}
+
+input {
+  color: black;
+}

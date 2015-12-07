@@ -1,0 +1,14 @@
+<h1>Meetups</h1>
+
+
+
+<% if current_user.nil?  %>
+  <% flash.now[:notice] = "Please sign in the use this functionality" %>
+<% else %>
+  <form method="POST" action="/new">
+    <input type="text" placeholder="Name" name="name" value="<%= @name %>">
+    <input type="text" placeholder="Description" name="description" value="<%= @description %>">
+    <input type="text" placeholder="Location" name="location" value="<%= @location %>">
+    <input type="submit" name="submit">
+  </form>
+<% end %>

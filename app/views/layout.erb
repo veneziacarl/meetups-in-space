@@ -4,8 +4,8 @@
     <title>Meetups</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="stylesheets/normalize.css" />
-    <link rel="stylesheet" href="stylesheets/app.css" />
+    <link rel="stylesheet" href="/stylesheets/normalize.css" />
+    <link rel="stylesheet" href="/stylesheets/app.css" />
   </head>
   <body>
 
@@ -14,11 +14,11 @@
         <a class="logo" href="/">Meetups in Space</a>
 
         <ul class="top-bar-section">
-          <% if current_user.present? %>
+          <% if current_user.nil?  %>
+            <li><a href="/auth/github">Sign In</a></li>
+          <% else %>
             <li>Signed in as <%= current_user.username %></a></li>
             <li><a href="/sign_out">Sign Out</a></li>
-          <% else %>
-            <li><a href="/auth/github">Sign In</a></li>
           <% end %>
         </ul>
       </div>

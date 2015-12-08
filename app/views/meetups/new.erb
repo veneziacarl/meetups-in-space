@@ -3,7 +3,7 @@
 
 
 <% if current_user.nil?  %>
-  <% flash.now[:notice] = "Please sign in the use this functionality" %>
+  <% flash.now[:notice] = "Please sign in to use this functionality" %>
 <% else %>
   <form method="POST" action="/new">
     <input type="text" placeholder="Name" name="name" value="<%= @name %>">

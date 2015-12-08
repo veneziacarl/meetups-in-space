@@ -16,18 +16,20 @@
 </ul>
 
 <% if current_user.nil? %>
-<a type="button" href="/auth/github">Sign in to Join Meetup!</a>
+  <a type="button" href="/auth/github">Sign in to Join Meetup!</a>
   <!-- <input type="button" value="Sign in to Join Meetup!" id="joinMeetup"/> -->
 <% else %>
-  <input type="button" value="JOIN MEETUP" id="joinMeetup"/>
+  <input type="button" value="JOIN MEETUP" id="joinMeetup" method="POST" action="/join/<%= @meetup.id %>"/>
 <% end %>
 
 <h3>Member List</h3>
 <hr>
 <ul class="memberList">
-  <% @memberlist.each do |member| %>
-  <li>
-    <img src="<%= member.avatar_url %>" class="avatar"><%= member.username %>
-  </li>
+  <% if @memberlist %>
+    <% @memberlist.each do |member| %>
+      <li><img src="<%= member.avatar_url %>" class="avatar"><%= member.username %></li>
+    <% end %>
+  <% else %>
+    <h2>No members to display</h2>
   <% end %>
 </ul>

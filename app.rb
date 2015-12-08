@@ -46,6 +46,12 @@ get '/new' do
   erb :'meetups/new'
 end
 
+post '/join/:id' do
+  @meetup = Meetup.find(params[:id])
+  session[:user_id]
+  redirect '/meetups'
+end
+
 post '/new' do
   @name = params["name"]
   @description = params["description"]

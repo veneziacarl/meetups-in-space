@@ -26,16 +26,4 @@ feature "User joins meetup" do
     expect(current_path).to eq('/meetups/4')
     expect(page).to have_content('user: beefsteak')
   end
-
-  # scenario "user sees button to join if not signed in" do
-  #   seed_db
-  #   visit '/'
-  #   click_on('a1')
-  #   expect(current_path).to eq('/meetups/2')
-  #
-  #   expect(page).to have_content('a1')
-  #   expect(page).to have_content('meetup2')
-  #   expect(page).to have_content('my work')
-  #   expect(page).to have_content('queen')
-  # end
 end

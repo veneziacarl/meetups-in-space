@@ -19,7 +19,7 @@
   <form action="/join/<%= @meetup.id %>" method="POST">
       <button name="joinMeetup" value="JOIN MEETUP">JOIN MEETUP</button>
   </form>
-<% elsif !@memberships.include?(session[:user_id])  %>
+<% elsif !@memberships.any?{ |member| member.user.id == session[:user_id] }  %>
   <form action="/join/<%= @meetup.id %>" method="POST">
       <button name="joinMeetup" value="JOIN MEETUP">JOIN MEETUP</button>
   </form>

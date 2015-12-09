@@ -35,10 +35,7 @@ end
 
 get '/meetups/:id' do
   @meetup = Meetup.find(params[:id])
-  user_id = session[:user_id]
-  if !user_id.nil?
-    @memberlist = [User.find(user_id)]
-  end
+  @memberships = @meetup.memberships
   erb :'meetups/show'
 end
 
@@ -48,24 +45,28 @@ end
 
 post '/join/:id' do
   @meetup = Meetup.find(params[:id])
-  session[:user_id]
-  redirect '/meetups'
+  if !session[:user_id]
+    flash.now[:notice] = "Please sign in to join this meetup!"
+    @memberships = @meetup.memberships
+    erb :'meetups/show'
+  else
+    Membership.create({user_id: session[:user_id], meetup_id: @meetup.id})
+    @memberships = @meetup.memberships
+    redirect "/meetups/#{params[:id]}"
+  end
 end
 
 post '/new' do
   @name = params["name"]
   @description = params["description"]
-  # creator = params["creator"]
-  # from session
   @location = params["location"]
 
   if (@name.empty? || @description.empty? || @location.empty?)
     flash.now[:notice] = "Please fill in form completely!"
     erb :"meetups/new"
   else
-    @new_meetup = Meetup.create({name: @name, description: @description, location: @location, creator: session[:user_id]})
+    @new_meetup = Meetup.create({name: @name, description: @description, location: @location, creator_id: session[:user_id]})
     flash[:notice] = "New meetup #{@name} created!"
     redirect "/meetups/#{@new_meetup.id}"
-    # erb :'meetups/new'
   end
 end

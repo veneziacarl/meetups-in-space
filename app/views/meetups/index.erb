@@ -1,14 +1,13 @@
 <h1>Meetups</h1>
 
-<ul>
+<div>
+  <ul class="display">
+    <% @meetups.each do |meetup| %>
+      <li>
+        <a href="/meetups/<%=meetup.id%>"><%= meetup.name %></a>
+      </li>
+    <% end %>
+  </ul>
+</div>
 
-
-<% @meetups.each do |meetup| %>
-<li>
-  <a href="/meetups/<%=meetup.id%>"><%= meetup.name %></a>
-
-</li>
-<% end %>
-</ul>
-
-<a href="/new" type="button" name="button">Add New Meetup!</a>
+<a href="/new" type="button" name="button" class="addNew">Add New Meetup!</a>

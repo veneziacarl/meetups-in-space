@@ -11,25 +11,32 @@
   </li>
 
   <li>
-  Creator: <%= @meetup.creator %>
+  Creator: <%= User.find(@meetup.creator_id).username %>
   </li>
 </ul>
 
 <% if current_user.nil? %>
-  <a type="button" href="/auth/github">Sign in to Join Meetup!</a>
-  <!-- <input type="button" value="Sign in to Join Meetup!" id="joinMeetup"/> -->
+  <form action="/join/<%= @meetup.id %>" method="POST">
+      <button name="joinMeetup" value="JOIN MEETUP">JOIN MEETUP</button>
+  </form>
+<% elsif !@memberships.include?(session[:user_id])  %>
+  <form action="/join/<%= @meetup.id %>" method="POST">
+      <button name="joinMeetup" value="JOIN MEETUP">JOIN MEETUP</button>
+  </form>
 <% else %>
-  <input type="button" value="JOIN MEETUP" id="joinMeetup" method="POST" action="/join/<%= @meetup.id %>"/>
+  <form action="#" method="#">
+      <button name="leaveMeetup" value="LEAVE MEETUP">LEAVE MEETUP</button>
+  </form>
 <% end %>
 
 <h3>Member List</h3>
 <hr>
 <ul class="memberList">
-  <% if @memberlist %>
-    <% @memberlist.each do |member| %>
-      <li><img src="<%= member.avatar_url %>" class="avatar"><%= member.username %></li>
-    <% end %>
-  <% else %>
+  <% if @memberships.empty? %>
     <h2>No members to display</h2>
+  <% else %>
+    <% @memberships.each do |member| %>
+      <li><img src="<%= member.user.avatar_url %>" class="avatar"> user: <%= member.user.username %></li>
+    <% end %>
   <% end %>
 </ul>

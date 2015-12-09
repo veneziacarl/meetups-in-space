@@ -10,14 +10,3 @@ class CreateMeetups < ActiveRecord::Migration
     end
   end
 end
-
-    # add_index :meetups, [:id, :name], unique: true
-
-# class CreateAssembliesAndParts < ActiveRecord::Migration
-#   def change
-#     create_table :meetups_users do |t|
-#       t.belongs_to :meetups, index: true
-#       t.belongs_to :users, index: true
-#     end
-#   end
-# end

@@ -3,6 +3,7 @@ require 'rspec'
 require 'capybara/rspec'
 require 'capybara/poltergeist'
 
+require_relative '../spec/features/seeder.rb'
 require_relative '../app.rb'
 Dir[__dir__ + '/support/*.rb'].each { |file| require_relative file }
 

@@ -9,4 +9,3 @@ FactoryGirl.define do
     avatar_url "https://avatars2.githubusercontent.com/u/174825?v=3&s=400"
   end
 end
-
